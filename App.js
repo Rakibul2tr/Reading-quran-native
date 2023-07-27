@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import CustomRoot from './CustomRoot';
+import { PaperProvider } from 'react-native-paper';
+import { theme } from './theme/Color';
+import { useFonts } from 'expo-font';
+import { StatusBar } from 'react-native';
+import 'expo-dev-client';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'QuanticoB': require('./assets/fonts/Quantico-Bold.ttf'),
+    'QuanticoR': require('./assets/fonts/Quantico-Regular.ttf'),
+    'NotoBenga': require('./assets/fonts/NotoSansBengali.ttf'),
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider theme={theme}>
+      <StatusBar style="auto" backgroundColor='#672CBC'/>
+      <CustomRoot/>
+    </PaperProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
