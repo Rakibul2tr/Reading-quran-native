@@ -30,7 +30,7 @@ const SurahScreen = ({navigation}) => {
     );
   };
   return (
-    <View >
+    <View style={styles.MainContainer}>
       <Text style={styles.titleName}>সূরার নাম</Text>
        {loading && <ActivityIndicator animating={true}size='large'color='#672CBC' />}
       {data && (
@@ -48,6 +48,11 @@ const SurahScreen = ({navigation}) => {
 export default SurahScreen
 
 const styles = StyleSheet.create({
+  MainContainer:{
+    flex:1,
+    justifyContent:'center',
+    width:'100%',
+  },
   itemContainer:{
     padding:10,
     paddingLeft:20,

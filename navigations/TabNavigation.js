@@ -13,7 +13,7 @@ const TabNavigation = () => {
    const getTabBarVisibility = (route) => {
      const routeName = getFocusedRouteNameFromRoute(route) ?? ""
               
-        if (routeName === 'Hafezi'||routeName === 'Surah detail'||routeName === 'dua monazath'||routeName === 'Start') {
+        if (routeName === 'Hafezi'||routeName === 'Surah detail'||routeName === 'dua monazath') {
         return { display: "none" }
         }
         return {

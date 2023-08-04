@@ -101,7 +101,7 @@ const SalathScreen = () => {
             </View>
           </View>
         </View>
-          </>: <ActivityIndicator animating={true} color={'#009146'} />
+          </>: <ActivityIndicator animating={true} size='large' color={'#009146'} />
         }
         <Text style={styles.pryerTitle}>আজকের আরবী তারিখ</Text>
        {
@@ -113,7 +113,7 @@ const SalathScreen = () => {
             <Text style={styles.dateTitle}>{hijri?.month?.number} মাস - {hijri?.year} হিজরী</Text>
           </View>
         </View>
-        : <ActivityIndicator animating={true} color={'#009146'} />
+        : <ActivityIndicator animating={true}size='large' color={'#009146'} />
        }
         
       </View>

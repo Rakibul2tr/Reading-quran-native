@@ -1,12 +1,14 @@
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Feather } from '@expo/vector-icons';
 import { Dialog, Portal, useTheme } from 'react-native-paper';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 const HomeScreen = ({navigation}) => {
+  const [userData,setUserData]=useState({})
   const [visible, setVisible] =useState(false);
 // date start
   const day =new Intl.DateTimeFormat('ar-FR-u-ca-islamic',
@@ -19,19 +21,34 @@ const HomeScreen = ({navigation}) => {
   {year : 'numeric'}).format(Date.now());
   // date end
   const {colors} = useTheme();
- const selected=(name)=>{
-  if(name=='monazath'){
-    console.log('monazath',name);
-    navigation.navigate('dua monazath',{name:'monazath'})
-    setVisible(false)
-  }else if(name=='neeker'){
-    console.log('neeker',name);
-     navigation.navigate('dua monazath',{name:'neeker'})
-     setVisible(false)
-  }
+  const selected=(name)=>{
+    if(name=='monazath'){
+      console.log('monazath',name);
+      navigation.navigate('dua monazath',{name:'monazath'})
+      setVisible(false)
+    }else if(name=='neeker'){
+      navigation.navigate('dua monazath',{name:'neeker'})
+      setVisible(false)
+    }else if(name=='Protidiner'){
+      navigation.navigate('dua monazath',{name:'Protidiner'})
+      setVisible(false)
+    }else if(name=='silahulMumin'){
+      navigation.navigate('dua monazath',{name:'silahulMumin'})
+      setVisible(false)
+    }
   
- }
- 
+   }
+
+   const getAsyncData=async()=>{
+      if(!(await AsyncStorage.getItem("user")) == true){
+      return
+      }else{
+        const user=await AsyncStorage.getItem("user")
+        const userPerse= JSON.parse(user)
+        setUserData(userPerse);
+      }
+   }
+   useEffect(()=>{getAsyncData()},[])
   return (
     <SafeAreaView style={{flex:1}}>
         <View style={styles.header}>
@@ -40,7 +57,7 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.containerWreper}>
          <View style={styles.nameTitle}>
           <Text variant='headlineLarge'style={{fontFamily:'QuanticoR'}}>Asslamualaikum</Text>
-          <Text style={[styles.name,{color:colors.primary}]}>Md:Rakibul Islam</Text>
+          <Text style={[styles.name,{color:colors.primary}]}>{userData?.firstName} {userData?.lastName}</Text>
           </View>
           <View style={styles.homeBenner}>
             <ImageBackground source={require('../assets/img/home-bg.png')}resizeMode="stretch"style={styles.bgImage}>
@@ -77,10 +94,16 @@ const HomeScreen = ({navigation}) => {
             <Dialog.Content>
               <TouchableOpacity onPress={()=>selected('monazath')}>
                 <Text style={styles.modalbookTitle}>মোনাজাতে মাকবুল ও হিজবুল বাহার</Text>
-                </TouchableOpacity>
+              </TouchableOpacity>
               <TouchableOpacity  onPress={()=>selected('neeker')}>
                 <Text style={styles.modalbookTitle}>নেকের রত্ন ভান্ডার</Text>
-                </TouchableOpacity>
+              </TouchableOpacity>
+              <TouchableOpacity  onPress={()=>selected('Protidiner')}>
+                <Text style={styles.modalbookTitle}>প্রতিদিনের নেক আমল</Text>
+              </TouchableOpacity>
+              <TouchableOpacity  onPress={()=>selected('silahulMumin')}>
+                <Text style={styles.modalbookTitle}>সিলাহুল মুমিন</Text>
+              </TouchableOpacity>
             </Dialog.Content>
           </Dialog>
         </Portal>

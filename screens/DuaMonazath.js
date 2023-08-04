@@ -1,16 +1,36 @@
 import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Pdf from 'react-native-pdf';
-import NeekAmalPdf from '../assets/img/Neker-Rotno-Vandar-rifbbt.pdf'
-import zekirPdf from '../assets/img/Munajate-Mokbul.pdf'
-import { Button } from 'react-native-paper';
+import { ActivityIndicator, Button } from 'react-native-paper';
 
 const DuaMonazath = ({ route, navigation }) => {
     const {name } = route.params;
+
     const [text, setText] =useState("");
+    const [source,setSource]=useState({})
     const [page,setPage]=useState()
     const [correntPage,setCorrentPage]=useState()
     const [totalPage,setTotalPage]=useState()
+    const monazath={uri:'https://ia801900.us.archive.org/30/items/duazikir/Munajate-Mokbul.pdf', cache: true}
+    const neeker={uri:'https://ia601204.us.archive.org/32/items/islamibook2/Neker-Rotno-Vandar.pdf', cache: true}
+    const Protidiner={uri:'https://ia801900.us.archive.org/30/items/duazikir/Protidiner-Nek-Amal.pdf', cache: true}
+    const silahulMumin={uri:'https://ia601900.us.archive.org/30/items/duazikir/Silahul-Mumin(Almodina.com).pdf', cache: true}
+
+   const loadData=()=>{
+      if(name=='monazath'){
+      setSource(monazath)
+    }else if(name=='neeker'){
+     setSource(neeker)
+    }else if(name=='Protidiner'){
+      setSource(Protidiner)
+    }else if(name=='silahulMumin'){
+      setSource(silahulMumin)
+    }
+
+   }
+   useEffect(()=>{
+    loadData()
+   },[])
   const selctedPage=()=>{
     if(parseInt(text)< totalPage){
         setPage(parseInt(text)+1)
@@ -23,14 +43,14 @@ const DuaMonazath = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-            <Pdf
+        {
+        source?<>
+         <Pdf
             trustAllCerts={false}
-            source={name=='monazath'?zekirPdf:NeekAmalPdf}
+            source={source}
             onLoadComplete={(numberOfPages,filePath) => {
-                console.log('succesfully load',numberOfPages);
             }}
             onPageChanged={(page,numberOfPages) => {
-                console.log(`Current page: ${page} ${numberOfPages}`);
                 setCorrentPage(page)
                 setTotalPage(numberOfPages)
             }}
@@ -43,7 +63,7 @@ const DuaMonazath = ({ route, navigation }) => {
             }}
             page={page}
             fitPolicy={2}
-            minScale={0.5}
+            minScale={1.0}
             scale={1.0}
             style={styles.pdf}/>
         
@@ -59,6 +79,9 @@ const DuaMonazath = ({ route, navigation }) => {
             />
             <Button mode="outlined"textColor="#fff"  onPress={selctedPage}>Ok</Button>
         </View>
+        </>:<ActivityIndicator animating={true}size='large'color='#672CBC' />
+        }
+           
     </View>
   )
 }

@@ -4,17 +4,18 @@
     "slug": "ReadingQuran",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/img/Icon.png",
     "userInterfaceStyle": "light",
     "plugins": [
       "@config-plugins/react-native-blob-util",
       "@config-plugins/react-native-pdf"
     ],
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/img/Icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+     "assets": ["/assets/img/Munajate-Mokbul.pdf","/assets/img/Neker-Rotno-Vandar-rifbbt.pdf"],
     "assetBundlePatterns": [
       "**/*"
     ],

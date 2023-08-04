@@ -4,6 +4,7 @@ import { theme } from './theme/Color';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
 import 'expo-dev-client';
+import { ContextProvider } from './contextApi/Context';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -16,8 +17,10 @@ export default function App() {
   }
   return (
     <PaperProvider theme={theme}>
+      <ContextProvider>
       <StatusBar style="auto" backgroundColor='#672CBC'/>
       <CustomRoot/>
+      </ContextProvider>
     </PaperProvider>
   );
 }

@@ -7,6 +7,7 @@ import HafeziQuran from '../screens/HafeziQuran';
 import SurahScreen from '../screens/SurahScreen';
 import SurahDetails from '../screens/SurahDetails';
 import DuaMonazath from '../screens/DuaMonazath';
+import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
